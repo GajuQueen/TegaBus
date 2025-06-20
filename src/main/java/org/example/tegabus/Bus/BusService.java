@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 public class BusService {
     public final BusRepository busRepository;
 
-
+    public String testing() {
+        return busRepository.findAll().toString();
+    }
 
 }
