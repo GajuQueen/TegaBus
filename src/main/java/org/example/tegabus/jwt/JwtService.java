@@ -3,6 +3,7 @@ package org.example.tegabus.jwt;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import org.example.tegabus.user.User;
 import org.example.tegabus.user.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,7 +21,7 @@ public class JwtService {
 
     public String generateToken(UserDetails userDetails) {
         String username = userDetails.getUsername();
-        UserRepository user = (UserRepository) userDetails;
+        User user = (User) userDetails;
         return Jwts.builder()
                 .subject(username)
                 .claim("full_name", user.getFullName())

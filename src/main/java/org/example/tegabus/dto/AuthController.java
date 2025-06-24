@@ -3,6 +3,7 @@ package org.example.tegabus.dto;
 import lombok.RequiredArgsConstructor;
 import org.example.tegabus.jwt.AuthService;
 import org.example.tegabus.jwt.JwtService;
+import org.example.tegabus.user.User;
 import org.example.tegabus.user.UserRepository;
 import org.example.tegabus.user.UserService;
 import org.springframework.http.HttpStatus;
@@ -29,7 +30,7 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
     @PostMapping("/register")
-    public ResponseEntity<UserRepository> register(@RequestBody RegisterRequestDto dto){
+    public ResponseEntity<User> register(@RequestBody RegisterRequestDto dto){
         var registerUser = authService.registerUser(dto);
         return new ResponseEntity<>(registerUser, HttpStatus.OK);
     }

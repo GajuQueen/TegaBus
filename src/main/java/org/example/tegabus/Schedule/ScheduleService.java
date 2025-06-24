@@ -1,13 +1,12 @@
 package org.example.tegabus.Schedule;
 
 import lombok.RequiredArgsConstructor;
-import org.example.tegabus.Bus.Bus;
-import org.example.tegabus.Bus.BusRepository;
-import org.example.tegabus.Bus.BusService;
-import org.example.tegabus.Company.Company;
-import org.example.tegabus.Company.CompanyRepository;
-import org.example.tegabus.Route.Route;
-import org.example.tegabus.Route.RouteRepository;
+import org.example.tegabus.bus.Bus;
+import org.example.tegabus.bus.BusRepository;
+import org.example.tegabus.company.Company;
+import org.example.tegabus.company.CompanyRepository;
+import org.example.tegabus.route.Route;
+import org.example.tegabus.route.RouteRepository;
 import org.springframework.stereotype.Service;
 import java.util.UUID;
 
