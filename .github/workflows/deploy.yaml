@@ -68,5 +68,5 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ secrets.DOCKER_HUB_USERNAME }}/TegaBus:latest
-            ${{ secrets.DOCKER_HUB_USERNAME }}/TegaBus:${{ github.sha }}
+            ${{ secrets.DOCKER_HUB_USERNAME }}/tegabus:latest
+            ${{ secrets.DOCKER_HUB_USERNAME }}/tegabus:${{ github.sha }}
