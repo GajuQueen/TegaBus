@@ -35,8 +35,8 @@ jobs:
       - name: Save build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: trendmart-ecommerce-platform
-          path: target/trendmart-ecommerce-platform-*.jar  # Use a wildcard to match the JAR file
+          name: TegaBus
+          path: target/TegaBus-*.jar  # Use a wildcard to match the JAR file
 
   docker:
     runs-on: ubuntu-latest
