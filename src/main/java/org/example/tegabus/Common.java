@@ -13,8 +13,8 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @MappedSuperclass
 public class Common {
     @Id
