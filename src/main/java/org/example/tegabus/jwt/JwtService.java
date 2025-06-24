@@ -22,10 +22,10 @@ public class JwtService {
         String username = userDetails.getUsername();
         UserRepository user = (UserRepository) userDetails;
         return Jwts.builder()
-                .setSubject(username)
+                .subject(username)
                 .claim("full_name", user.getFullName())
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis()+ getExpirationTime()))
+                .issuedAt(new Date())
+                .expiration(new Date(System.currentTimeMillis()+ getExpirationTime()))
                 .signWith(getKey())
                 .compact();
     }
