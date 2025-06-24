@@ -3,7 +3,6 @@ package org.example.tegabus.jwt;
 import lombok.RequiredArgsConstructor;
 import org.example.tegabus.dto.LoginRequestDto;
 import org.example.tegabus.dto.RegisterRequestDto;
-import org.example.tegabus.user.User;
 import org.example.tegabus.user.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,14 +18,14 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
 
-    public User registerUser(RegisterRequestDto dto){
-        User user = new User();
+    public UserRepository registerUser(RegisterRequestDto dto){
+        UserRepository user = new UserRepository();
         user.setEmail(dto.getEmail());
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
         user.setFullName(dto.getFullName());
         return userRepository.save(user);
     }
-    public User loginUser(LoginRequestDto dto){
+    public UserRepository loginUser(LoginRequestDto dto){
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword())
         );

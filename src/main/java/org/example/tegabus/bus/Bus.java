@@ -1,4 +1,4 @@
-package org.example.tegabus.Bus;
+package org.example.tegabus.bus;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.example.tegabus.Booking.Booking;
 import org.example.tegabus.Common;
-import org.example.tegabus.Company.Company;
-import org.example.tegabus.Route.Route;
+import org.example.tegabus.company.Company;
+import org.example.tegabus.route.Route;
 import org.example.tegabus.Schedule.Schedule;
 
 import java.util.List;
@@ -21,13 +21,18 @@ import java.util.List;
 @Getter
 @Setter
 public class Bus extends Common {
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String plateNumber;
-    private int capacity;
+//    private int capacity;
     private BusModel model;
     @Column(nullable = false)
     private BusStatus status;
+    @Column(nullable = false)
     private BusType type;
+    @Column(nullable = false)
+    private String driverName;
+    @Column(unique = true, nullable = false)
+    private String driverPhoneNumber;
 
     @ManyToOne
     @JoinColumn(name = "company_id")

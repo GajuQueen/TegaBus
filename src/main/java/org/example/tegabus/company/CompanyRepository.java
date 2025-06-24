@@ -1,4 +1,4 @@
-package org.example.tegabus.Company;
+package org.example.tegabus.company;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

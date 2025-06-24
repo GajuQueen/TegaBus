@@ -1,4 +1,4 @@
-package org.example.tegabus.Company;
+package org.example.tegabus.company;
 
 public enum CompanyStatus {
     ACTIVE,
