@@ -12,24 +12,24 @@ import java.util.UUID;
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    public UserRepository getUserByEmail(String email){
+    public User getUserByEmail(String email){
         return userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
     }
 
     public void createPasswordResetToken(String email){
-        UserRepository user = getUserByEmail(email);
+        User user = getUserByEmail(email);
         user.setResetToken(UUID.randomUUID().toString());
         user.setResetTokenExpiry(LocalDateTime.now().plusMinutes(15));
         userRepository.save(user);
         // where to send email in an app
     }
     //getting user by reset token
-    public UserRepository getUserByResetToken(String token){
+    public User getUserByResetToken(String token){
         return userRepository.findByResetToken(token)
                 .orElseThrow(() -> new RuntimeException("Invalid reset token"));
     }
     public void resetPassword(String token, String newPassword){
-        UserRepository user = getUserByResetToken(token);
+        User user = getUserByResetToken(token);
         if(user.getResetTokenExpiry().isBefore(LocalDateTime.now())){
             throw new RuntimeException("Reset token has expired");
         }
