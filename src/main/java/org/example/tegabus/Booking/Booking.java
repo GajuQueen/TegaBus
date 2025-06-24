@@ -9,6 +9,7 @@ import lombok.Setter;
 import org.example.tegabus.Common;
 import org.example.tegabus.Schedule.Schedule;
 import org.example.tegabus.bus.Bus;
+import org.example.tegabus.route.Route;
 import org.example.tegabus.user.User;
 
 import java.time.LocalDate;
@@ -48,6 +49,9 @@ public class Booking extends Common {
     private String ticketCode;
     @Column(columnDefinition = "TEXT")
     private String qrCodeData;
+    @ManyToOne
+    @JsonBackReference
+    private Route route;
 
 
 
