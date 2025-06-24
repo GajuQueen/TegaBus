@@ -1,18 +1,14 @@
-package org.example.tegabus.Company;
+package org.example.tegabus.company;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.example.tegabus.Booking.Booking;
-import org.example.tegabus.Bus.Bus;
+import org.example.tegabus.bus.Bus;
 import org.example.tegabus.Common;
-import org.example.tegabus.Route.Route;
+import org.example.tegabus.route.Route;
 import org.example.tegabus.Schedule.Schedule;
 
 import java.time.LocalDateTime;
@@ -27,28 +23,28 @@ import java.util.List;
 public class Company extends Common {
 
     @Column(unique = true, nullable = false)
-    private String name;
-    private String address;
+    private String companyName;
+    private String companyAddress;
     @Column(unique = true, nullable = false)
     private String email;
     @Column(unique = true, nullable = false)
     private String phoneNumber;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private CompanyStatus status;
-    private LocalDateTime registrationDate;
-    boolean isActive;
+    @Column(nullable = false)
+    private LocalDateTime registration;
 
-    @OneToMany(mappedBy = "company")
+
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<Bus> buses;
 
-    @OneToMany(mappedBy = "company")
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<Route> routes;
 
-    @OneToMany(mappedBy = "company")
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<Schedule> schedules;
-
-
-
 }

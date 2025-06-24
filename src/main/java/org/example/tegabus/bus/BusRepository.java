@@ -1,4 +1,4 @@
-package org.example.tegabus.Bus;
+package org.example.tegabus.bus;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

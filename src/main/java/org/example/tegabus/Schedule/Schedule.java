@@ -8,10 +8,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.example.tegabus.Bus.Bus;
+import org.example.tegabus.bus.Bus;
 import org.example.tegabus.Common;
-import org.example.tegabus.Company.Company;
-import org.example.tegabus.Route.Route;
+import org.example.tegabus.company.Company;
+import org.example.tegabus.route.Route;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
