@@ -15,7 +15,7 @@ import java.util.UUID;
 public class BookingDto {
     private String passengerName;
     private String passengerEmail;
-    private String passengerPhone;
+    private String PhoneNumber;
 
     private Double amountPaid;
     private LocalDate travelDate;

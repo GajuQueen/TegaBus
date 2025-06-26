@@ -26,7 +26,7 @@ public class SecurityConfig {
                                         "/api/auth/register",
                                         "/auth/register",
                                         "/",
-                                        "/auth/login",
+                                        "/api/auth/login",
                                         "/v2/api-docs",
                                         "/v3/api-docs",
                                         "/v3/api-docs/**",
@@ -37,8 +37,6 @@ public class SecurityConfig {
                                         "/webjars/**",
                                         "/swagger-ui.html"
                                 ).permitAll()
-                                .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                                .requestMatchers("/api/user/**").hasRole("USER")
                                 .anyRequest()
                                 .authenticated()
                 )
