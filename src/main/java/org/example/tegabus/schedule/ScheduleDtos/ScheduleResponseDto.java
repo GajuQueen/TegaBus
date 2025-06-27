@@ -1,17 +1,16 @@
-package org.example.tegabus.Schedule;
+package org.example.tegabus.schedule.ScheduleDtos;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class ScheduleDto {
+@Builder
+public class ScheduleResponseDto {
+    private UUID id;
     private LocalDateTime departureTime;
     private LocalDateTime arrivalTime;
     private LocalDate travelDate;
@@ -20,5 +19,4 @@ public class ScheduleDto {
     private UUID busId;
     private UUID companyId;
     private UUID routeId;
-
 }

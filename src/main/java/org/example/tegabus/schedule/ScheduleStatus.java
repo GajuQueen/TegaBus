@@ -1,4 +1,4 @@
-package org.example.tegabus.Schedule;
+package org.example.tegabus.schedule;
 
 public enum ScheduleStatus {
     ACTIVE,

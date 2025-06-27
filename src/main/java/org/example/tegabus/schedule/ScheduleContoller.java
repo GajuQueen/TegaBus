@@ -1,4 +1,4 @@
-package org.example.tegabus.Schedule;
+package org.example.tegabus.schedule;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;

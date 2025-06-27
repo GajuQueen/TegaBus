@@ -30,23 +30,23 @@ public class BusController {
         return new ResponseEntity<>(buses, HttpStatus.OK);
     }
 
-    @GetMapping("/id")
+    @GetMapping("/{id}")
     @Operation(summary = "Find Bus by id")
     public ResponseEntity<Bus> findBusById(@PathVariable UUID id){
         Bus bus = busService.findBusById(id);
         return new ResponseEntity<>(bus, HttpStatus.OK);
     }
 
-    @PatchMapping("/id")
+    @PatchMapping("/{id}")
     @Operation(summary = "Update a Bus")
     public ResponseEntity<Bus> updateBus(@PathVariable UUID id, @RequestBody @Valid BusDto dto){
         Bus bus = busService.updateBus(id, dto);
         return new ResponseEntity<>(bus, HttpStatus.OK);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     @Operation(summary = "Delete Bus by id")
-    public ResponseEntity<Void> deleteById(UUID id){
+    public ResponseEntity<Void> deleteById(@PathVariable UUID id){
     busService.deleteById(id);
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

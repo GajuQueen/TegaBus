@@ -1,6 +1,5 @@
-package org.example.tegabus.Booking;
+package org.example.tegabus.booking;
 
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

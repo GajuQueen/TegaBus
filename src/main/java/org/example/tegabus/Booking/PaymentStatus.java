@@ -1,4 +1,4 @@
-package org.example.tegabus.Booking;
+package org.example.tegabus.booking;
 
 public enum PaymentStatus {
     PENDING,

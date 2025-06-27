@@ -1,4 +1,4 @@
-package org.example.tegabus.Schedule;
+package org.example.tegabus.schedule;
 
 import lombok.RequiredArgsConstructor;
 import org.example.tegabus.bus.Bus;

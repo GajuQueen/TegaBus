@@ -1,4 +1,4 @@
-package org.example.tegabus.Booking;
+package org.example.tegabus.booking;
 
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;

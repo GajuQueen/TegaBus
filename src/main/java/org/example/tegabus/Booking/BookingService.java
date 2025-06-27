@@ -1,8 +1,8 @@
-package org.example.tegabus.Booking;
+package org.example.tegabus.booking;
 
 import lombok.RequiredArgsConstructor;
-import org.example.tegabus.Schedule.Schedule;
-import org.example.tegabus.Schedule.ScheduleRepository;
+import org.example.tegabus.schedule.Schedule;
+import org.example.tegabus.schedule.ScheduleRepository;
 import org.example.tegabus.bus.Bus;
 import org.example.tegabus.bus.BusRepository;
 import org.example.tegabus.user.User;
