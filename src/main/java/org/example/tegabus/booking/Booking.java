@@ -1,4 +1,4 @@
-package org.example.tegabus.Booking;
+package org.example.tegabus.booking;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
