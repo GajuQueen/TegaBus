@@ -22,10 +22,15 @@ import java.util.List;
 public class User extends Common implements UserDetails {
 
     @Column(name = "full_name")
-    private String fullName;
+    private String firstName;
+    @Column(name = "last_name")
+    private String lastName;
     @Column(unique = true, nullable = false)
     private String email;
+    @Column(unique = true, nullable = false)
     private String password;
+    @Transient
+    private String confirmPassword;
     @Enumerated(EnumType.STRING)
     private Role role;
     private String resetToken;
@@ -38,31 +43,33 @@ public class User extends Common implements UserDetails {
 
     @Override
     public String getPassword() {
-        return "";
+
+        return this.password;
     }
 
     @Override
     public String getUsername() {
-        return "";
+        return this.email;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return UserDetails.super.isAccountNonExpired();
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return UserDetails.super.isAccountNonLocked();
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return UserDetails.super.isCredentialsNonExpired();
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return UserDetails.super.isEnabled();
+
+        return true;
     }
 }
