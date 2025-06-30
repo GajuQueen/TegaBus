@@ -1,6 +1,7 @@
 package org.example.tegabus.booking;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.example.tegabus.booking.Dtos.BookingDto;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/bookings")
+@SecurityRequirement(name = "auth")
 @RequiredArgsConstructor
 public class BookingController {
     private final BookingService  bookingService;
