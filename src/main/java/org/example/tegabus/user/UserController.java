@@ -112,3 +112,4 @@ public class UserController {
         return ResponseEntity.ok("Password reset successfully .");
     }
 }
+
