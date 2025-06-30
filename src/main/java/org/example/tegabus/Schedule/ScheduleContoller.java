@@ -2,6 +2,7 @@ package org.example.tegabus.Schedule;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/schedules")
+@SecurityRequirement(name = "auth")
 @RequiredArgsConstructor
 @Tag(name = "Schedule Controller")
 public class ScheduleContoller {
