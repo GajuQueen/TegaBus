@@ -10,8 +10,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
+
 @Service
 public class JwtService {
     @Value("${jwt.secret_key}")
@@ -24,7 +28,7 @@ public class JwtService {
         User user = (User) userDetails;
         return Jwts.builder()
                 .subject(username)
-                .claim("full_name", user.getFullName())
+                .claim("full_name", user.getFirstName() + user.getLastName())
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis()+ getExpirationTime()))
                 .signWith(getKey())
@@ -51,6 +55,19 @@ public class JwtService {
     //This method extracts the expiration from token using getClaim
     public Date getExpirationTime(String token){
         return getClaims(token, Claims::getExpiration);
+    }
+    public List<String> getRoles(String token){
+        return getClaims(token, claims -> {
+//            List<String> roles = new ArrayList<>();
+            Object roles = claims.get("roles");
+            if(roles instanceof List<?> roleList){
+                return roleList.stream()
+                        .filter(String.class::isInstance)
+                        .map(String.class::cast)
+                        .collect(Collectors.toList());
+            }
+            return List.of();
+        });
     }
     public SecretKey getKey(){
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
