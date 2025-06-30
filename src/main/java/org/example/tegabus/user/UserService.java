@@ -16,12 +16,13 @@ public class UserService {
         return userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
     }
 
-    public void createPasswordResetToken(String email){
+    public String createPasswordResetToken(String email){
         User user = getUserByEmail(email);
         user.setResetToken(UUID.randomUUID().toString());
         user.setResetTokenExpiry(LocalDateTime.now().plusMinutes(15));
         userRepository.save(user);
-        // where to send email in an app
+        return user.getResetToken();
+
     }
     //getting user by reset token
     public User getUserByResetToken(String token){
