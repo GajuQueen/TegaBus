@@ -1,6 +1,7 @@
 package org.example.tegabus.route;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/routes")
+@SecurityRequirement(name = "auth")
 @RequiredArgsConstructor
 public class RouteController {
     private final RouteService routeService;
