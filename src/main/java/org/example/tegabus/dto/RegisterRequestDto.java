@@ -5,9 +5,14 @@ import lombok.Data;
 
 @Data
 public class RegisterRequestDto {
-    private String fullName;
+    @NotBlank
+    private String firstName;
+    @NotBlank
+    private String lastName;
     @NotBlank
     private String email;
     @NotBlank
     private String password;
+    @NotBlank
+    private String confirmPassword;
 }
