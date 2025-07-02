@@ -1,6 +1,7 @@
 package org.example.tegabus.company;
 
 import lombok.RequiredArgsConstructor;
+import org.example.tegabus.company.Dtos.CompanyDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

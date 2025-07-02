@@ -1,6 +1,7 @@
 package org.example.tegabus.company.Dtos;
 
 
+
 import lombok.Builder;
 import lombok.Data;
 import org.example.tegabus.company.CompanyStatus;
@@ -16,4 +17,5 @@ public class CompanyResponseDto {
     private String email;
     private String phoneNumber;
     private CompanyStatus status;
+
 }
