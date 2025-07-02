@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.example.tegabus.schedule.ScheduleDtos.ScheduleResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ public class ScheduleContoller {
 
     @Operation(summary = "Create a new schedule")
     @PostMapping
-    public ResponseEntity<Schedule> createSchedule(@RequestBody ScheduleDto dto) {
+    public ResponseEntity<Schedule> createSchedule(@RequestBody ScheduleResponseDto.ScheduleDto dto) {
         Schedule schedule = scheduleService.createSchedule(dto);
         return new ResponseEntity<>(schedule, HttpStatus.CREATED);
 
@@ -53,7 +54,7 @@ public class ScheduleContoller {
             summary = "update a schedule by id"
     )
     @PutMapping("/{id}")
-    public ResponseEntity<Schedule> updateSchedule(@PathVariable UUID id, @RequestBody ScheduleDto dto) {
+    public ResponseEntity<Schedule> updateSchedule(@PathVariable UUID id, @RequestBody ScheduleResponseDto.ScheduleDto dto) {
         Optional<Schedule> updated = scheduleService.updateSchedule(id, dto);
         return updated.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());

@@ -7,6 +7,7 @@ import org.example.tegabus.company.Company;
 import org.example.tegabus.company.CompanyRepository;
 import org.example.tegabus.route.Route;
 import org.example.tegabus.route.RouteRepository;
+import org.example.tegabus.schedule.ScheduleDtos.ScheduleResponseDto;
 import org.springframework.stereotype.Service;
 import java.util.UUID;
 
@@ -26,7 +27,7 @@ public class ScheduleService {
     private final RouteRepository routeRepository;
     private final CompanyRepository companyRepository;
 
-    public Schedule createSchedule(ScheduleDto dto) {
+    public Schedule createSchedule(ScheduleResponseDto.ScheduleDto dto) {
         Company company = companyRepository.findById(dto.getCompanyId()).orElseThrow(() -> new RuntimeException("Company not found"));
         Bus bus = busRepository.findById(dto.getBusId()).orElseThrow(() -> new RuntimeException("Bus not found"));
         Route route = routeRepository.findById(dto.getRouteId()).orElseThrow(() -> new RuntimeException("Route not found"));
@@ -79,7 +80,7 @@ public class ScheduleService {
         public List<Schedule> getScheduleByStatus(ScheduleStatus status){
            return scheduleRepository.findByStatus(status);
         }
-         public Optional<Schedule> updateSchedule(UUID scheduleId, ScheduleDto dto){
+         public Optional<Schedule> updateSchedule(UUID scheduleId, ScheduleResponseDto.ScheduleDto dto){
         return scheduleRepository.findById(scheduleId).map(schedule -> {
             schedule.setDepartureTime(dto.getDepartureTime());
             schedule.setArrivalTime(dto.getArrivalTime());
