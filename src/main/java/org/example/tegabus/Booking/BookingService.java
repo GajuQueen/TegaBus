@@ -29,7 +29,7 @@ public class BookingService {
         Booking booking = new Booking();
         booking.setPassengerName(dto.getPassengerName());
         booking.setPassengerEmail(dto.getPassengerEmail());
-        booking.setPhoneNumber(dto.getPhoneNumber());
+        booking.setPassengerPhone(dto.getPassengerPhone());
         booking.setAmountPaid(dto.getAmountPaid());
         booking.setTravelDate(dto.getTravelDate());
         booking.setCurrency(dto.getCurrency());
@@ -53,7 +53,7 @@ public class BookingService {
         return bookingRepository.findById(id).map(existing -> {
             existing.setPassengerName(dto.getPassengerName());
             existing.setPassengerEmail(dto.getPassengerEmail());
-            existing.setPhoneNumber(dto.getPhoneNumber());
+            existing.setPassengerPhone(dto.getPassengerPhone());
             existing.setAmountPaid(dto.getAmountPaid());
             existing.setCurrency(dto.getCurrency());
             existing.setTravelDate(dto.getTravelDate());

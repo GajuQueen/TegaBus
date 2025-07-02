@@ -28,7 +28,7 @@ public class Booking extends Common {
     private String passengerName;
     @Column(nullable = false)
     private String passengerEmail;
-    private String phoneNumber;
+    private String passengerPhone;
     private LocalDate travelDate;
     private LocalDateTime bookingTime;
     private Double amountPaid;
