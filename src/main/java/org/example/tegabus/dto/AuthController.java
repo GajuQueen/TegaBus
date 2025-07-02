@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.example.tegabus.jwt.AuthService;
 import org.example.tegabus.jwt.JwtService;
 import org.example.tegabus.user.User;
-import org.example.tegabus.user.UserRepository;
 import org.example.tegabus.user.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
