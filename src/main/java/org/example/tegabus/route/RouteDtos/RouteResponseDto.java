@@ -1,5 +1,6 @@
 package org.example.tegabus.route.RouteDtos;
 
+
 import lombok.Builder;
 import lombok.Data;
 
@@ -14,4 +15,5 @@ public class RouteResponseDto {
     private Double distanceInKm;
     private Integer  durationInMinutes;
     private Double price;
+
 }
