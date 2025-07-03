@@ -21,7 +21,7 @@ CREATE TABLE booking
     status          SMALLINT,
     passenger_name  VARCHAR(255) NOT NULL,
     passenger_email VARCHAR(255) NOT NULL,
-    phone_number    VARCHAR(255),
+    passenger_phone VARCHAR(255),
     travel_date     date,
     booking_time    TIMESTAMP WITHOUT TIME ZONE,
     amount_paid     DOUBLE PRECISION,
@@ -53,14 +53,14 @@ CREATE TABLE bus
 
 CREATE TABLE companies
 (
-    id              UUID         NOT NULL,
+    id              UUID                        NOT NULL,
     updated_at      TIMESTAMP WITHOUT TIME ZONE,
     created_at      TIMESTAMP WITHOUT TIME ZONE,
-    company_name    VARCHAR(255) NOT NULL,
+    company_name    VARCHAR(255)                NOT NULL,
     company_address VARCHAR(255),
-    email           VARCHAR(255) NOT NULL,
-    phone_number    VARCHAR(255) NOT NULL,
-    status          VARCHAR(255) NOT NULL,
+    email           VARCHAR(255)                NOT NULL,
+    phone_number    VARCHAR(255)                NOT NULL,
+    status          VARCHAR(255)                NOT NULL,
     registration    TIMESTAMP WITHOUT TIME ZONE NOT NULL,
     CONSTRAINT pk_companies PRIMARY KEY (id)
 );

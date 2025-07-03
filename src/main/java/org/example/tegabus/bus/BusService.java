@@ -1,6 +1,8 @@
 package org.example.tegabus.bus;
 
 import lombok.RequiredArgsConstructor;
+//import org.example.tegabus.exception.ResourceNotFoundException;
+import org.example.tegabus.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,13 +31,13 @@ public class BusService {
 
     public Bus findBusById(UUID id) {
         return busRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Bus not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Bus not found"));
     }
 
     public Bus updateBus(UUID id, BusDto dto) {
 
         Bus bus = busRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Bus not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Bus not found"));
         bus.setPlateNumber(dto.getPlateNumber());
         bus.setModel(dto.getModel());
         bus.setStatus(dto.getStatus());
@@ -48,7 +50,7 @@ public class BusService {
 
     public void deleteById(UUID id) {
         busRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Bus not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Bus not found"));
         busRepository.deleteById(id);
     }
 

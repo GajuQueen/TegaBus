@@ -1,6 +1,5 @@
-package org.example.tegabus.Booking;
+package org.example.tegabus.booking;
 
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +14,7 @@ import java.util.UUID;
 public class BookingDto {
     private String passengerName;
     private String passengerEmail;
-    private String PhoneNumber;
+    private String passengerPhone;
 
     private Double amountPaid;
     private LocalDate travelDate;

@@ -1,4 +1,4 @@
-package org.example.tegabus.Booking;
+package org.example.tegabus.booking;
 
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +32,7 @@ public class BookingController {
         return new ResponseEntity<>(Bookings, HttpStatus.OK);
     }
     @Operation(
-            summary = "update booking by Id"
+            summary = "update bookings by Id"
     )
     @PutMapping("/{id}")
     public ResponseEntity<Booking> updateBookingById(@PathVariable UUID id, @RequestBody BookingDto dto){

@@ -1,4 +1,4 @@
-package org.example.tegabus.Booking;
+package org.example.tegabus.booking;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.example.tegabus.Common;
-import org.example.tegabus.Schedule.Schedule;
+import org.example.tegabus.schedule.Schedule;
 import org.example.tegabus.bus.Bus;
 import org.example.tegabus.route.Route;
 import org.example.tegabus.user.User;
@@ -28,7 +28,7 @@ public class Booking extends Common {
     private String passengerName;
     @Column(nullable = false)
     private String passengerEmail;
-    private String phoneNumber;
+    private String passengerPhone;
     private LocalDate travelDate;
     private LocalDateTime bookingTime;
     private Double amountPaid;
