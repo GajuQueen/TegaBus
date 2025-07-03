@@ -32,7 +32,7 @@ public class BookingController {
         return new ResponseEntity<>(Bookings, HttpStatus.OK);
     }
     @Operation(
-            summary = "update booking by Id"
+            summary = "update bookings by Id"
     )
     @PutMapping("/{id}")
     public ResponseEntity<Booking> updateBookingById(@PathVariable UUID id, @RequestBody BookingDto dto){
