@@ -12,6 +12,6 @@ public class paymentDto {
     private String email;
     private String phone;
     private String name;
-    private String redirectUrl;
+//    private String redirectUrl;
 
 }
