@@ -2,9 +2,8 @@ package org.example.tegabus.bus.dtos;
 
 import lombok.Builder;
 import lombok.Data;
-import org.example.tegabus.bus.BusModel;
 import org.example.tegabus.bus.BusStatus;
-import org.example.tegabus.bus.BusType;
+import org.example.tegabus.route.routeDtos.RouteResponseDto;
 
 import java.util.UUID;
 
@@ -13,9 +12,7 @@ import java.util.UUID;
 public class BusResponseDto {
     private UUID id;
     private String plateNumber;
-    private BusModel model;
     private BusStatus status;
-    private BusType type;
+    private RouteResponseDto route;
     private String driverName;
-    private String driverPhoneNumber;
 }
