@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/routes")
+@RequestMapping("/api/routes")
 @RequiredArgsConstructor
 public class RouteController {
     private final RouteService routeService;
