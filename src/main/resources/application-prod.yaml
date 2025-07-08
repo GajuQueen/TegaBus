@@ -15,3 +15,9 @@ spring:
 jwt:
   secret_key: ${JWT_SECRET}
   expiration: ${JWT_EXPIRATION}
+
+flutterwave:
+  public-key: ${FLUTTER_KEY}
+  secret-key: ${FLUTTER_SECRET}
+  encryption-key: ${FLUTTER_ENCRYPTION}
+  base-url: ${FLUTTER_BAE_URL}
