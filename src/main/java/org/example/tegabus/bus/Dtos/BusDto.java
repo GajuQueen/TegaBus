@@ -1,10 +1,13 @@
-package org.example.tegabus.bus;
+package org.example.tegabus.bus.Dtos;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.example.tegabus.bus.BusModel;
+import org.example.tegabus.bus.BusStatus;
+import org.example.tegabus.bus.BusType;
 
 @Getter
 @Setter
