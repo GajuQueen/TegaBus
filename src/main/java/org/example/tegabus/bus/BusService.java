@@ -2,6 +2,7 @@ package org.example.tegabus.bus;
 
 import lombok.RequiredArgsConstructor;
 //import org.example.tegabus.exception.ResourceNotFoundException;
+import org.example.tegabus.bus.Dtos.BusDto;
 import org.example.tegabus.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 

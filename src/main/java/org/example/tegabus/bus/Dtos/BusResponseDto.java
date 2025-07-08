@@ -1,7 +1,10 @@
-package org.example.tegabus.bus;
+package org.example.tegabus.bus.Dtos;
 
 import lombok.Builder;
 import lombok.Data;
+import org.example.tegabus.bus.BusModel;
+import org.example.tegabus.bus.BusStatus;
+import org.example.tegabus.bus.BusType;
 
 import java.util.UUID;
 

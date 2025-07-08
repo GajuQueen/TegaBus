@@ -30,6 +30,7 @@ public class User extends Common implements UserDetails {
     private Role role;
     private String resetToken;
     private LocalDateTime resetTokenExpiry;
+    private String phoneNumber;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
