@@ -1,10 +1,11 @@
 package org.example.tegabus.route;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.example.tegabus.route.RouteDtos.RouteDto;
-import org.example.tegabus.route.RouteDtos.RouteResponseDto;
+import org.example.tegabus.route.routeDtos.RouteDto;
+import org.example.tegabus.route.routeDtos.RouteResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/routes")
+@SecurityRequirement(name = "auth")
 @RequiredArgsConstructor
 public class RouteController {
     private final RouteService routeService;
@@ -23,7 +25,6 @@ public class RouteController {
     public ResponseEntity<RouteResponseDto> createRoute(@RequestBody @Valid RouteDto dto){
         Route route = routeService.createRoute(dto);
         RouteResponseDto responseDto = RouteResponseDto.builder()
-                .id(route.getId())
                 .origin(route.getOrigin())
                 .destination(route.getDestination())
                 .distanceInKm(route.getDistanceInKm())
@@ -40,7 +41,6 @@ public class RouteController {
         List<Route> routes = routeService.getAllRoutes();
         List<RouteResponseDto> responseDto = routes.stream()
                 .map(route -> RouteResponseDto.builder()
-                .id(route.getId())
                 .origin(route.getOrigin())
                 .destination(route.getDestination())
                 .distanceInKm(route.getDistanceInKm())
@@ -56,7 +56,6 @@ public class RouteController {
     public ResponseEntity<RouteResponseDto> getRouteById(@PathVariable UUID id){
         Route route = routeService.getRouteById(id);
         RouteResponseDto responseDto = RouteResponseDto.builder()
-                .id(route.getId())
                 .origin(route.getOrigin())
                 .destination(route.getDestination())
                 .distanceInKm(route.getDistanceInKm())
@@ -71,7 +70,6 @@ public class RouteController {
     public ResponseEntity<RouteResponseDto> updateRoute(@PathVariable UUID id, @RequestBody @Valid RouteDto dto){
         Route route = routeService.updateRoute(id, dto);
         RouteResponseDto responseDto = RouteResponseDto.builder()
-                .id(route.getId())
                 .origin(route.getOrigin())
                 .destination(route.getDestination())
                 .distanceInKm(route.getDistanceInKm())

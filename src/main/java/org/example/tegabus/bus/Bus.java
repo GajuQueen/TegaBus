@@ -26,6 +26,7 @@ public class Bus extends Common {
 //    private int capacity;
     private BusModel model;
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private BusStatus status;
     @Column(nullable = false)
     private BusType type;
@@ -39,9 +40,9 @@ public class Bus extends Common {
     @JsonBackReference
     private Company company;
 
-    @OneToMany(mappedBy = "bus")
-    @JsonManagedReference
-    private List<Route> routes;
+   @ManyToOne
+   @JoinColumn(name = "route_id")
+    private Route route;
 
     @OneToMany(mappedBy = "bus")
     @JsonManagedReference

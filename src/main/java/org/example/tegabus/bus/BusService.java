@@ -2,8 +2,11 @@ package org.example.tegabus.bus;
 
 import lombok.RequiredArgsConstructor;
 //import org.example.tegabus.exception.ResourceNotFoundException;
-import org.example.tegabus.bus.Dtos.BusDto;
+import org.example.tegabus.bus.dtos.BusDto;
+import org.example.tegabus.bus.dtos.BusResponseDto;
 import org.example.tegabus.exception.ResourceNotFoundException;
+import org.example.tegabus.route.Route;
+import org.example.tegabus.route.routeDtos.RouteResponseDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,16 +17,20 @@ import java.util.UUID;
 public class BusService {
     public final BusRepository busRepository;
 
-    public Bus createBus(BusDto dto) {
-        Bus bus = new Bus();
+    private void applyDtoToBus(BusDto dto, Bus bus) {
         bus.setPlateNumber(dto.getPlateNumber());
         bus.setModel(dto.getModel());
         bus.setStatus(dto.getStatus());
         bus.setType(dto.getType());
         bus.setDriverName(dto.getDriverName());
         bus.setDriverPhoneNumber(dto.getDriverPhoneNumber());
-        return busRepository.save(bus);
 
+
+    }
+    public Bus createBus(BusDto dto) {
+        Bus bus = new Bus();
+        applyDtoToBus(dto, bus);
+        return busRepository.save(bus);
     }
     
     public List<Bus> findAll(){
@@ -39,14 +46,26 @@ public class BusService {
 
         Bus bus = busRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Bus not found"));
-        bus.setPlateNumber(dto.getPlateNumber());
-        bus.setModel(dto.getModel());
-        bus.setStatus(dto.getStatus());
-        bus.setType(dto.getType());
-        bus.setDriverName(dto.getDriverName());
-        bus.setDriverPhoneNumber(dto.getDriverPhoneNumber());
+                  applyDtoToBus(dto, bus);
         return busRepository.save(bus);
 
+    }
+    public BusResponseDto toResponseDto(Bus bus){
+        Route route = bus.getRoute();
+        RouteResponseDto routeResponseDto = new RouteResponseDto(
+                route.getOrigin(),
+                route.getDestination(),
+                route.getPrice(),
+                route.getDurationInMinutes(),
+                route.getDistanceInKm()
+        );
+        return BusResponseDto.builder()
+                .id(bus.getId())
+                .plateNumber(bus.getPlateNumber())
+                .status(bus.getStatus())
+                .route(routeResponseDto)
+                .driverName(bus.getDriverName())
+                .build();
     }
 
     public void deleteById(UUID id) {

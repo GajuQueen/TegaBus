@@ -38,10 +38,9 @@ public class Route extends Common {
     @JsonBackReference
     private Company company;
 
-    @ManyToOne
-    @JoinColumn(name = "bus_id")
-    @JsonBackReference
-    private Bus bus;
+    @OneToMany(mappedBy = "route")
+    @JsonManagedReference
+    private List<Bus> bus;
 
     @OneToMany(mappedBy = "route", fetch = FetchType.LAZY)
     @JsonManagedReference

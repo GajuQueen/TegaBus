@@ -20,10 +20,14 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
 
     public User registerUser(RegisterRequestDto dto){
+        if(!dto.getPassword().equals(dto.getConfirmPassword())){
+            throw new RuntimeException("Passwords do not match");
+        }
         User user = new User();
         user.setEmail(dto.getEmail());
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
-        user.setFullName(dto.getFullName());
+        user.setFirstName(dto.getFirstName());
+        user.setLastName(dto.getLastName());
         return userRepository.save(user);
     }
     public User loginUser(LoginRequestDto dto){

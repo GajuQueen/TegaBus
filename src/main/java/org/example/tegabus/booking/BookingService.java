@@ -1,7 +1,8 @@
 package org.example.tegabus.booking;
 
 import lombok.RequiredArgsConstructor;
-import org.example.tegabus.booking.Dtos.BookingDto;
+import org.example.tegabus.route.Route;
+import org.example.tegabus.route.routeDtos.RouteResponseDto;
 import org.example.tegabus.schedule.Schedule;
 import org.example.tegabus.schedule.ScheduleRepository;
 import org.example.tegabus.bus.Bus;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -21,8 +23,26 @@ public class BookingService {
     private final UserRepository userRepository;
     private final BusRepository busRepository;
     private final ScheduleRepository scheduleRepository;
+private BookingResponseDto toResponseDto(Booking booking){
+    Schedule schedule = booking.getSchedule();
+    Route route = schedule.getRoute();
+    RouteResponseDto routeDto = new RouteResponseDto(
+            route.getOrigin(),
+            route.getDestination(),
+            route.getPrice(),
+            route.getDurationInMinutes(),
+            route.getDistanceInKm()
+    );
+    return BookingResponseDto.builder()
+            .id(booking.getId())
+            .passengerName(booking.getPassengerName())
+            .travelDate(booking.getTravelDate())
+            .seatNumber(booking.getSeatNumber())
+            .route(routeDto)
+            .build();
 
-    public Booking createBooking(BookingDto dto){
+}
+    public BookingResponseDto createBooking(BookingDto dto){
         Bus bus = busRepository.findById(dto.getBusId()).orElseThrow(() -> new RuntimeException("Bus not found"));
         Schedule schedule = scheduleRepository.findById(dto.getScheduleId()).orElseThrow(() -> new RuntimeException("Schedule not found"));
         User user = userRepository.findById(dto.getUserId()).orElseThrow(() -> new RuntimeException("User not found"));
@@ -41,16 +61,21 @@ public class BookingService {
         booking.setBus(bus);
         booking.setSchedule(schedule);
         booking.setUser(user);
-        return bookingRepository.save(booking);
+        Booking saved = bookingRepository.save(booking);
+        return toResponseDto(saved);
 
     }
-    public List<Booking> getAllBookings(){
-        return bookingRepository.findAll();
+    public List<BookingResponseDto> getAllBookings(){
+    return bookingRepository.findAll()
+            .stream()
+            .map(this::toResponseDto)
+            .collect(Collectors.toList());
     }
-    public Optional<Booking> getBookingById(UUID id){
-        return bookingRepository.findById(id);
+    public Optional<BookingResponseDto> getBookingById(UUID id){
+    return bookingRepository.findById(id)
+            .map(this::toResponseDto);
     }
-    public Optional<Booking> updateBooking(UUID id, BookingDto dto){
+    public Optional<BookingResponseDto> updateBooking(UUID id, BookingDto dto){
         return bookingRepository.findById(id).map(existing -> {
             existing.setPassengerName(dto.getPassengerName());
             existing.setPassengerEmail(dto.getPassengerEmail());
@@ -61,12 +86,13 @@ public class BookingService {
             existing.setCurrency(dto.getCurrency());
             existing.setQrCodeData(dto.getQrCodeData());
             existing.setTicketCode(dto.getTicketCode());
+            Booking updated = bookingRepository.save(existing);
 
-            return bookingRepository.save(existing);
+            return toResponseDto(updated);
 
         });
     }
     public void deleteBooking(UUID id){
-        bookingRepository.deleteById(id);
+    bookingRepository.deleteById(id);
     }
 }
