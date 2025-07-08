@@ -1,7 +1,7 @@
 package org.example.tegabus.route;
 
 import lombok.RequiredArgsConstructor;
-import org.example.tegabus.route.RouteDtos.RouteDto;
+import org.example.tegabus.route.routeDtos.RouteDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

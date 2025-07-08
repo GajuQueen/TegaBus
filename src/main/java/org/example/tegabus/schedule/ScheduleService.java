@@ -6,7 +6,7 @@ import org.example.tegabus.bus.BusRepository;
 import org.example.tegabus.company.Company;
 import org.example.tegabus.company.CompanyRepository;
 import org.example.tegabus.route.Route;
-import org.example.tegabus.route.RouteDtos.RouteResponseDto;
+import org.example.tegabus.route.routeDtos.RouteResponseDto;
 import org.example.tegabus.route.RouteRepository;
 import org.example.tegabus.schedule.ScheduleDtos.ScheduleDto;
 import org.example.tegabus.schedule.ScheduleDtos.ScheduleResponseDto;
@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.util.UUID;
 
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

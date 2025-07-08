@@ -1,13 +1,10 @@
 package org.example.tegabus.schedule.ScheduleDtos;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.example.tegabus.route.RouteDtos.RouteResponseDto;
+import org.example.tegabus.route.routeDtos.RouteResponseDto;
 import org.example.tegabus.schedule.ScheduleStatus;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 

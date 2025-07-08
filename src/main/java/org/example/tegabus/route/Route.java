@@ -38,7 +38,7 @@ public class Route extends Common {
     @JsonBackReference
     private Company company;
 
-    @OneToMany(mappedBy = "bus")
+    @OneToMany(mappedBy = "route")
     @JsonManagedReference
     private List<Bus> bus;
 

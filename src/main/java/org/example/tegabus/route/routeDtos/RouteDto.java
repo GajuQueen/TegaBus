@@ -1,4 +1,4 @@
-package org.example.tegabus.route.RouteDtos;
+package org.example.tegabus.route.routeDtos;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
