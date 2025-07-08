@@ -1,4 +1,4 @@
-package org.example.tegabus.booking;
+package org.example.tegabus.booking.Dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

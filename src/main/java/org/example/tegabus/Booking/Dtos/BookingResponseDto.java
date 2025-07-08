@@ -1,4 +1,4 @@
-package org.example.tegabus.booking;
+package org.example.tegabus.booking.Dtos;
 
-public class BookingResponse {
+public class BookingResponseDto {
 }

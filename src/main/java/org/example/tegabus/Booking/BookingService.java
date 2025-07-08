@@ -1,6 +1,7 @@
 package org.example.tegabus.booking;
 
 import lombok.RequiredArgsConstructor;
+import org.example.tegabus.booking.Dtos.BookingDto;
 import org.example.tegabus.schedule.Schedule;
 import org.example.tegabus.schedule.ScheduleRepository;
 import org.example.tegabus.bus.Bus;
