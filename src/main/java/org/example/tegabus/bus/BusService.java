@@ -59,13 +59,13 @@ public class BusService {
                 route.getDurationInMinutes(),
                 route.getDistanceInKm()
         );
-        return new BusResponseDto(
-                bus.getId(),
-                bus.getPlateNumber(),
-                bus.getStatus(),
-                routeResponseDto,
-                bus.getDriverName()
-        );
+        return BusResponseDto.builder()
+                .id(bus.getId())
+                .plateNumber(bus.getPlateNumber())
+                .status(bus.getStatus())
+                .route(routeResponseDto)
+                .driverName(bus.getDriverName())
+                .build();
     }
 
     public void deleteById(UUID id) {
