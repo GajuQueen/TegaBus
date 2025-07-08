@@ -1,15 +1,18 @@
-package org.example.tegabus.bus;
+package org.example.tegabus.bus.dtos;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.example.tegabus.bus.BusModel;
+import org.example.tegabus.bus.BusStatus;
+import org.example.tegabus.bus.BusType;
 
 @Getter
 @Setter
 @RequiredArgsConstructor
-
 public class BusDto {
     @NotBlank(message = "PlateNumber is required")
     private String plateNumber;

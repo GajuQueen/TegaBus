@@ -1,19 +1,23 @@
 package org.example.tegabus.route.RouteDtos;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class RouteResponseDto {
-    private UUID id;
     private String origin;
     private String destination;
-    private Double distanceInKm;
-    private Integer  durationInMinutes;
     private Double price;
+    private Integer  durationInMinutes;
+    private Double distanceInKm;
+
 
 }
