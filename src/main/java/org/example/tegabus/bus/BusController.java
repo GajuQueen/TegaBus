@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/bus")
+@RequestMapping("/api/bus")
 @RequiredArgsConstructor
 public class BusController {
     private final BusService busService;
