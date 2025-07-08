@@ -6,12 +6,11 @@ import org.example.tegabus.bus.dtos.BusDto;
 import org.example.tegabus.bus.dtos.BusResponseDto;
 import org.example.tegabus.exception.ResourceNotFoundException;
 import org.example.tegabus.route.Route;
-import org.example.tegabus.route.RouteDtos.RouteResponseDto;
+import org.example.tegabus.route.routeDtos.RouteResponseDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
