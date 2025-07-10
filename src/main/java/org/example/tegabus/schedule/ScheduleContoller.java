@@ -1,7 +1,6 @@
 package org.example.tegabus.schedule;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -30,7 +29,10 @@ public class ScheduleContoller {
     @Operation(summary = "Create a new schedule")
     @PostMapping
     public ResponseEntity<ScheduleResponseDto> createSchedule(@RequestBody @Valid ScheduleDto dto) {
+        System.out.println("Resp start");
+        System.out.println(dto);
         var saved = scheduleService.createSchedule(dto);
+        System.out.println("Service error");
         return new ResponseEntity<>(scheduleService.toResponseDto(saved), HttpStatus.CREATED);
 
     }
