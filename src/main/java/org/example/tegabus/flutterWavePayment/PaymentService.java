@@ -32,7 +32,7 @@ public class PaymentService {
         body.addProperty("tx_ref", txRef);
         body.addProperty("amount", dto.getAmount());
         body.addProperty("currency", "RWF");
-        body.addProperty("redirect_url", dto.getRedirectUrl());
+//        body.addProperty("redirect_url", dto.getRedirectUrl());
 
         JsonObject customer = new JsonObject();
         customer.addProperty("name", dto.getName());
