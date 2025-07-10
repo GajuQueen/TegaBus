@@ -10,6 +10,7 @@ import org.example.tegabus.schedule.ScheduleDtos.ScheduleDto;
 import org.example.tegabus.schedule.ScheduleDtos.ScheduleResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -33,6 +34,7 @@ public class ScheduleContoller {
         return new ResponseEntity<>(scheduleService.toResponseDto(saved), HttpStatus.CREATED);
 
     }
+    @PreAuthorize("hasAnyRole('DRIVER', 'USER')")
     @Operation(summary = "Get all schedules")
     @GetMapping
     public ResponseEntity<List<ScheduleResponseDto>> getAllSchedules(){
