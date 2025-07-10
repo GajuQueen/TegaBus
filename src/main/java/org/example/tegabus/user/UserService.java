@@ -1,6 +1,7 @@
 package org.example.tegabus.user;
 
 import lombok.RequiredArgsConstructor;
+import org.example.tegabus.analytics.UserAnalyticsResponse;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,14 @@ public class UserService {
         user.setResetToken(null);
         user.setResetTokenExpiry(null);
         userRepository.save(user);
+    }
+    public UserAnalyticsResponse getUserAnalytics(){
+        long total = userRepository.count();
+        long admin = userRepository.countByRole(Role.ADMIN);
+        long user = userRepository.countByRole(Role.USER);
+        long driver = userRepository.countByRole(Role.DRIVER);
+
+        return new UserAnalyticsResponse(total, admin, user, driver);
     }
 
 }

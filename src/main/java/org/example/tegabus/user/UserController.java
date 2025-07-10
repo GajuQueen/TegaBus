@@ -45,8 +45,10 @@
 //}
 package org.example.tegabus.user;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
+import org.example.tegabus.analytics.UserAnalyticsResponse;
 import org.example.tegabus.dto.LoginRequestDto;
 import org.example.tegabus.dto.PasswordResetDto;
 import org.example.tegabus.dto.RegisterRequestDto;
@@ -54,6 +56,7 @@ import org.example.tegabus.jwt.AuthService;
 import org.example.tegabus.jwt.JwtService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
@@ -110,6 +113,12 @@ public class UserController {
         userRepository.save(user);
 //        userService.resetPassword(token, newPassword);
         return ResponseEntity.ok("Password reset successfully .");
+    }
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/analytics")
+    @Operation(summary = "Get user analytics ")
+    public ResponseEntity<UserAnalyticsResponse> getUserAnalytics(){
+        return new ResponseEntity<>(userService.getUserAnalytics(), HttpStatus.OK);
     }
 }
 
