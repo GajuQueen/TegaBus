@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/bus")
+@RequestMapping("/api/bus")
 @SecurityRequirement(name = "auth")
 @RequiredArgsConstructor
 public class BusController {
