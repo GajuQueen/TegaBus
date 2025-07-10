@@ -8,6 +8,7 @@ import org.example.tegabus.route.Route;
 import org.example.tegabus.route.routeDtos.RouteResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,12 +40,14 @@ return BookingResponseDto.builder()
         .build();
 
     }
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @PostMapping
     @Operation(summary = "create a new booking")
     public ResponseEntity<BookingResponseDto> createBooking(@RequestBody BookingDto dto){
         BookingResponseDto responseDto = bookingService.createBooking(dto);
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping("/{id}")
     @Operation(summary = "Get all bookings")
     public ResponseEntity<BookingResponseDto> getBookingById(@PathVariable UUID id){
@@ -52,6 +55,7 @@ return BookingResponseDto.builder()
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping
     @Operation(summary = "Get all bookings")
 public ResponseEntity<List<BookingResponseDto>> getAllBookings(){
