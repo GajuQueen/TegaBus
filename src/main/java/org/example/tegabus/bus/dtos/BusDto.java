@@ -9,6 +9,7 @@ import lombok.Setter;
 import org.example.tegabus.bus.BusModel;
 import org.example.tegabus.bus.BusStatus;
 import org.example.tegabus.bus.BusType;
+import org.example.tegabus.route.routeDtos.RouteResponseDto;
 
 @Getter
 @Setter
@@ -26,4 +27,5 @@ public class BusDto {
     private String driverName;
     @NotBlank(message = "DriverPhoneNumber must not be blank")
     private String driverPhoneNumber;
+    private RouteResponseDto route;
 }

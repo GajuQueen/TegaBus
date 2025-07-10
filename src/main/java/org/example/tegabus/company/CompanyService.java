@@ -19,6 +19,7 @@ public class CompanyService {
         company.setEmail(dto.getEmail());
         company.setPhoneNumber(dto.getPhoneNumber());
         company.setStatus(dto.getStatus());
+        company.setRegistration(dto.getRegistration());
         return companyRepository.save(company);
 
     }
@@ -41,6 +42,7 @@ public class CompanyService {
         company.setEmail(dto.getEmail());
         company.setPhoneNumber(dto.getPhoneNumber());
         company.setStatus(dto.getStatus());
+        company.setRegistration(dto.getRegistration());
         return companyRepository.save(company);
 
     }

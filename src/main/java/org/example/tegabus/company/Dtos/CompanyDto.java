@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.example.tegabus.company.CompanyStatus;
 
+import java.time.LocalDateTime;
+
 
 @Getter
 @Setter
@@ -22,5 +24,6 @@ public class CompanyDto {
         private String phoneNumber;
         @NotNull(message = "Status is required")
         private CompanyStatus status;
+        private LocalDateTime registration;
 
     }

@@ -28,6 +28,8 @@ public class BusController {
                 .id(bus.getId())
                 .status(bus.getStatus())
                 .driverName(bus.getDriverName())
+                .plateNumber(bus.getPlateNumber())
+//                .route(bus.getRoute())
                 .build();
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }

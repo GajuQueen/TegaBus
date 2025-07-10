@@ -31,6 +31,7 @@ public class CompanyController {
                 .email(company.getEmail())
                 .phoneNumber(company.getPhoneNumber())
                 .status(company.getStatus())
+                .registration(company.getRegistration())
         .build();
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
@@ -47,6 +48,7 @@ public class CompanyController {
                 .email(company.getEmail())
                 .phoneNumber(company.getPhoneNumber())
                 .status(company.getStatus())
+                        .registration(company.getRegistration())
                 .build())
          .toList();
         return new ResponseEntity<>( responseDto, HttpStatus.OK);
@@ -63,6 +65,7 @@ public class CompanyController {
                 .email(company.getEmail())
                 .phoneNumber(company.getPhoneNumber())
                 .status(company.getStatus())
+                .registration(company.getRegistration())
                 .build();
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
@@ -79,6 +82,7 @@ public class CompanyController {
                 .email(company.getEmail())
                 .phoneNumber(company.getPhoneNumber())
                 .status(company.getStatus())
+                .registration(company.getRegistration())
                 .build();
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
