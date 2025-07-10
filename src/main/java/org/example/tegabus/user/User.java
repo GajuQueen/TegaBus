@@ -33,6 +33,7 @@ public class User extends Common implements UserDetails {
     @Transient
     private String confirmPassword;
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Role role;
     private String resetToken;
     private LocalDateTime resetTokenExpiry;

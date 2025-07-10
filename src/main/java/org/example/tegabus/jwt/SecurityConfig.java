@@ -28,6 +28,7 @@ public class SecurityConfig {
                                                 .requestMatchers("/api/bookings/**").hasAnyRole("USER","ADMIN")
                                 .requestMatchers("/api/schedules/**").hasAnyRole("DRIVER","USER")
                                 .requestMatchers("/api/users/**").hasRole("ADMIN")
+                                .requestMatchers("/api/auth/register/admin").permitAll()
                                 .requestMatchers(
 
                                         "/api/auth/register",

@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/routes")
+@RequestMapping("/api/routes")
 @SecurityRequirement(name = "auth")
 @RequiredArgsConstructor
 public class RouteController {

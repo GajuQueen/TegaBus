@@ -89,6 +89,11 @@ public class UserController {
         var registerUser = authService.registerUser(dto);
         return new ResponseEntity<>(registerUser, HttpStatus.OK);
     }
+    @PostMapping("/register/admin")
+    public ResponseEntity<User> registerAdmin(@RequestBody RegisterRequestDto dto){
+        var registerUser = authService.registerUser(dto);
+        return new ResponseEntity<>(registerUser, HttpStatus.OK);
+    }
     @PostMapping("/forgot-password")
     public ResponseEntity<?> forgotPassword(@RequestBody String email){
         User user =  userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Email not found"));
