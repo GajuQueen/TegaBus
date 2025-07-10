@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/companies")
+@RequestMapping("/api/companies")
 @SecurityRequirement(name = "auth")
 @RequiredArgsConstructor
 public class CompanyController {
