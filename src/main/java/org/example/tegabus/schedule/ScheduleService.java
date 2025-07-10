@@ -28,10 +28,14 @@ public class ScheduleService {
     private final CompanyRepository companyRepository;
 
     public Schedule createSchedule(ScheduleDto dto) {
+        System.out.println("Start service");
         Company company = companyRepository.findById(dto.getCompanyId()).orElseThrow(() -> new RuntimeException("Company not found"));
+        System.out.println("Company nop");
         Bus bus = busRepository.findById(dto.getBusId()).orElseThrow(() -> new RuntimeException("Bus not found"));
+        System.out.println("Bus nop");
         Route route = routeRepository.findById(dto.getRouteId()).orElseThrow(() -> new RuntimeException("Route not found"));
 
+        System.out.println("End checking");
         Schedule schedule = new Schedule();
         schedule.setDepartureTime(dto.getDepartureTime());
         schedule.setArrivalTime(dto.getArrivalTime());
@@ -91,3 +95,7 @@ public class ScheduleService {
         });
     }
 }
+
+
+
+
