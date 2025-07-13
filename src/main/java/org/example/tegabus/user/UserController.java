@@ -91,8 +91,8 @@ public class UserController {
     }
     @PostMapping("/register/admin")
     public ResponseEntity<User> registerAdmin(@RequestBody RegisterRequestDto dto){
-        var registerUser = authService.registerUser(dto);
-        return new ResponseEntity<>(registerUser, HttpStatus.OK);
+        var registerAdmin = authService.registerAdmin(dto);
+        return new ResponseEntity<>(registerAdmin, HttpStatus.OK);
     }
     @PostMapping("/forgot-password")
     public ResponseEntity<?> forgotPassword(@RequestBody String email){
