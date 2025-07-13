@@ -49,13 +49,36 @@ public class SecurityConfig {
 
 
 //                                ADMIN(Full_Control)
-//                                                .requestMatchers("/api/bookings/**").hasAnyRole("USER","ADMIN")
-                                .requestMatchers("/api/schedules/**").hasAnyRole("DRIVER", "ADMIN")
+                                .requestMatchers("/api/buses/**").hasRole("ADMIN")
+                                .requestMatchers("/api/buses").hasRole("ADMIN")
+
+                                .requestMatchers("/api/routes/**").hasRole("ADMIN")
+                                .requestMatchers("/api/routes").hasRole("ADMIN")
+
+                                .requestMatchers("/api/companies/**").hasRole("ADMIN")
+                                .requestMatchers("/api/companies").hasRole("ADMIN")
+
+                                .requestMatchers("/api/schedules/**").hasRole("ADMIN")
+                                .requestMatchers("/api/schedules").hasRole("ADMIN")
+
+                                .requestMatchers("/api/bookings/**").hasRole("ADMIN")
+                                .requestMatchers("/api/bookings").hasRole("ADMIN")
+
                                 .requestMatchers("/api/users/**").hasRole("ADMIN")
-                                .requestMatchers("/api/companies/**").hasAnyRole( "ADMIN")
-                                .requestMatchers("/api/buses/**").hasAnyRole("ADMIN")
-                                .requestMatchers("/api/routes/**").hasAnyRole("DRIVER", "ADMIN")
+                                .requestMatchers("/api/users").hasRole("ADMIN")
+
+                                .requestMatchers("/api/companies/**").hasRole("ADMIN")
+                                .requestMatchers("/api/companies").hasRole("ADMIN")
+
                                 .requestMatchers("/api/auth/register/admin").permitAll()
+
+//                                                .requestMatchers("/api/bookings/**").hasAnyRole("USER","ADMIN")
+//                                .requestMatchers("/api/schedules/**").hasAnyRole("DRIVER", "ADMIN")
+//                                .requestMatchers("/api/users/**").hasRole("ADMIN")
+//                                .requestMatchers("/api/companies/**").hasAnyRole( "ADMIN")
+//                                .requestMatchers("/api/buses/**").hasAnyRole("ADMIN")
+//                                .requestMatchers("/api/routes/**").hasAnyRole("DRIVER", "ADMIN")
+
                                 .requestMatchers(
 
                                         "/api/auth/register",
