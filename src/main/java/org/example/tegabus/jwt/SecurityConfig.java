@@ -25,9 +25,36 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.GET, "/api/schedules").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/api/routes").permitAll()
                                 .requestMatchers("/api/users/analytics").hasRole("ADMIN")
-                                                .requestMatchers("/api/bookings/**").hasAnyRole("USER","ADMIN")
-                                .requestMatchers("/api/schedules/**").hasAnyRole("DRIVER","USER")
+//                                USER PERMISSION(Limited_Access)
+                                // COMPANIES: read-only access
+                                .requestMatchers(HttpMethod.GET, "/api/companies").hasRole("USER")
+                                .requestMatchers(HttpMethod.GET, "/api/companies/**").hasRole("USER")
+
+                                // BUSES: read-only access
+                                .requestMatchers(HttpMethod.GET, "/api/buses").hasRole("USER")
+                                .requestMatchers(HttpMethod.GET, "/api/buses/**").hasRole("USER")
+
+                                // ROUTES: read-only access
+                                .requestMatchers(HttpMethod.GET, "/api/routes").hasRole("USER")
+                                .requestMatchers(HttpMethod.GET, "/api/routes/**").hasRole("USER")
+
+                                // SCHEDULES: read-only access
+                                .requestMatchers(HttpMethod.GET, "/api/schedules").hasRole("USER")
+                                .requestMatchers(HttpMethod.GET, "/api/schedules/**").hasRole("USER")
+
+                                // BOOKINGS: can create, view, delete own booking
+                                .requestMatchers(HttpMethod.POST, "/api/bookings").hasRole("USER")
+                                .requestMatchers(HttpMethod.GET, "/api/bookings/**").hasRole("USER")
+                                .requestMatchers(HttpMethod.DELETE, "/api/bookings/**").hasRole("USER")
+
+
+//                                ADMIN(Full_Control)
+//                                                .requestMatchers("/api/bookings/**").hasAnyRole("USER","ADMIN")
+                                .requestMatchers("/api/schedules/**").hasAnyRole("DRIVER", "ADMIN")
                                 .requestMatchers("/api/users/**").hasRole("ADMIN")
+                                .requestMatchers("/api/companies/**").hasAnyRole( "ADMIN")
+                                .requestMatchers("/api/buses/**").hasAnyRole("ADMIN")
+                                .requestMatchers("/api/routes/**").hasAnyRole("DRIVER", "ADMIN")
                                 .requestMatchers("/api/auth/register/admin").permitAll()
                                 .requestMatchers(
 

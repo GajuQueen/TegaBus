@@ -29,8 +29,21 @@ public class AuthService {
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
         user.setFirstName(dto.getFirstName());
         user.setLastName(dto.getLastName());
-        user.setRole(Role.ADMIN);
+//        user.setRole(Role.ADMIN);
         user.setRole(Role.USER);
+        return userRepository.save(user);
+    }
+    public User registerAdmin(RegisterRequestDto dto){
+        if(!dto.getPassword().equals(dto.getConfirmPassword())){
+            throw new RuntimeException("Passwords do not match");
+        }
+        User user = new User();
+        user.setEmail(dto.getEmail());
+        user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        user.setFirstName(dto.getFirstName());
+        user.setLastName(dto.getLastName());
+        user.setRole(Role.ADMIN);
+//        user.setRole(Role.USER);
         return userRepository.save(user);
     }
     public User loginUser(LoginRequestDto dto){
