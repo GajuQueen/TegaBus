@@ -22,4 +22,3 @@ flutterwave:
   encryption-key: ${FLUTTER_ENCRYPTION}
   base-url: ${FLUTTER_BAE_URL}
 
-  email
