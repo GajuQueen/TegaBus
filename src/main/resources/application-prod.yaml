@@ -4,6 +4,16 @@ spring:
     url: ${DB_URL}
     password: ${DB_PASSWORD}
     username: ${DB_USERNAME}
+
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    protocol: smtp
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+
+
   jpa:
     hibernate:
       ddl-auto: validate
