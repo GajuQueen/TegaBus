@@ -27,20 +27,24 @@ public class EmailService {
     }
 
 //    VERIFICATION
-    public void sendVerificationEmail(String toEmail, String token) {
-        String subject = "Verify your Tegabus Account";
-        String body = "Click this link to verify your email:<br><br>" +
-                "<a href=\"http://localhost:8080/api/auth/verify?token=" + token + "\">Verify Email</a>";
+public void sendVerificationEmail(String toEmail, String token) {
+    String subject = "Verify Your Tegabus Account";
+    String verificationUrl = "http://localhost:8080/api/auth/verify-email?token=" + token;
 
-        try {
-            MimeMessage message = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            helper.setTo(toEmail);
-            helper.setSubject(subject);
-            helper.setText(body, true);
-            mailSender.send(message);
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to send verification email");
-        }
+    String body = "<h3>Welcome to Tegabus!</h3>" +
+            "<p>Please click the link below to verify your email address:</p>" +
+            "<a href=\"" + verificationUrl + "\">Verify Email</a>" +
+            "<p>If you did not register, please ignore this email.</p>";
+
+    try {
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+        helper.setTo(toEmail);
+        helper.setSubject(subject);
+        helper.setText(body, true);
+        mailSender.send(message);
+    } catch (Exception e) {
+        throw new RuntimeException(" Failed to send verification email: " + e.getMessage());
     }
+}
 }

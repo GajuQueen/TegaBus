@@ -54,19 +54,24 @@ public class UserService {
 
 //    VERIFICATION
 
-    public void registerUser(User user) {
-        if (!user.getEmail().endsWith("@gmail.com")) {
-            throw new IllegalArgumentException("Only Gmail addresses are allowed");
+    public User registerUser(User user) {
+        String gmailRegex = "^[a-zA-Z0-9](?!.*[._]{2})[a-zA-Z0-9._]{0,28}[a-zA-Z0-9]@gmail\\.com$";
+        if (!user.getEmail().matches(gmailRegex)) {
+            throw new IllegalArgumentException("Email must be a valid Gmail address like name@gmail.com");
+        }
+
+
+        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+            throw new IllegalArgumentException("Email is already registered");
         }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-        String token = UUID.randomUUID().toString();
-        user.setVerificationToken(token);
+        user.setVerificationToken(UUID.randomUUID().toString());
         user.setVerified(false);
 
-        userRepository.save(user);
-        emailService.sendVerificationEmail(user.getEmail(), token);
+        User savedUser = userRepository.save(user);
+        emailService.sendVerificationEmail(user.getEmail(), user.getVerificationToken());
+        return savedUser;
     }
 
     public void verifyUserByToken(String token) {
@@ -82,5 +87,16 @@ public class UserService {
         if (!user.isVerified()) {
             throw new RuntimeException("Please verify your email before logging in");
         }
+    }
+
+    public void deleteAdminById(UUID id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (!user.getRole().equals(Role.ADMIN)) {
+            throw new RuntimeException("Cannot delete a user who is not an admin");
+        }
+
+        userRepository.delete(user);
     }
 }

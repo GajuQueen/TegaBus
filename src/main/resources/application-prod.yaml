@@ -21,3 +21,5 @@ flutterwave:
   secret-key: ${FLUTTER_SECRET}
   encryption-key: ${FLUTTER_ENCRYPTION}
   base-url: ${FLUTTER_BAE_URL}
+
+  email
