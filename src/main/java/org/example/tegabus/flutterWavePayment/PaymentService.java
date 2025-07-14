@@ -32,7 +32,7 @@ public class PaymentService {
         body.addProperty("tx_ref", txRef);
         body.addProperty("amount", dto.getAmount());
         body.addProperty("currency", "RWF");
-//        body.addProperty("redirect_url", dto.getRedirectUrl());
+        body.addProperty("redirect_url", dto.getRedirectUrl());
 
         JsonObject customer = new JsonObject();
         customer.addProperty("name", dto.getName());
@@ -48,12 +48,12 @@ public class PaymentService {
                 .build();
 
         try (Response response = client.newCall(request).execute()){
+            String responseBody = response.body().string();
 
             if (!response.isSuccessful()) {
-                throw new RuntimeException("Payment initiation failed: " + response.message());
+                throw new RuntimeException("Payment initiation failed: " + responseBody);
             }
 
-            String responseBody = response.body().string();
 
             JsonObject json = gson.fromJson(responseBody, JsonObject.class);
             JsonObject data = json.getAsJsonObject("data");
