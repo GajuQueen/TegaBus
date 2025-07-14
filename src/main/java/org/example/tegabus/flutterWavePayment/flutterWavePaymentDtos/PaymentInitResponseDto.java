@@ -11,5 +11,6 @@ public class PaymentInitResponseDto {
     private String status;
     private String message;
     private String paymentLink;
+    private String qrCodeBase64;
 
 }

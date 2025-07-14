@@ -15,4 +15,8 @@ public class RegisterRequestDto {
     private String password;
     @NotBlank
     private String confirmPassword;
+    @NotBlank
+    private String country;
+    @NotBlank
+    private String phoneNumber;
 }
