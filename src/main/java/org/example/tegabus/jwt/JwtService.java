@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -30,13 +31,14 @@ public class JwtService {
                 .claim("full_name", user.getFirstName() + user.getLastName())
                 .claim("role", user.getRole().name())
                 .issuedAt(new Date())
-                .expiration(new Date(System.currentTimeMillis()+ getExpirationTime()))
+                .expiration(new Date(System.currentTimeMillis()+ getExpirationTime() * 1000))
                 .signWith(getKey())
                 .compact();
     }
     //when getting all claims from a token
     public Claims getClaims (String token) {
         return Jwts.parser()
+//                .clockSkew(Duration.ofSeconds(30))
                 .verifyWith(getKey())
                 .build()
                 .parseSignedClaims(token)
