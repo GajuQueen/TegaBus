@@ -15,6 +15,7 @@ public class PaymentVerifyResponseDto {
     private double amount;
     private String currency;
     private UserDto user;
+    private String qrCodeBase64;
 
 
     @Data
