@@ -44,6 +44,8 @@ public class AuthService {
         user.setLastName(dto.getLastName());
         user.setRole(Role.ADMIN);
 //        user.setRole(Role.USER);
+        user.setCountry(dto.getCountry());
+        user.setPhoneNumber(dto.getPhoneNumber());
         return userRepository.save(user);
     }
     public User loginUser(LoginRequestDto dto){
