@@ -38,6 +38,11 @@ public class User extends Common implements UserDetails {
     private String resetToken;
     private LocalDateTime resetTokenExpiry;
     private String phoneNumber;
+    private String country;
+    private boolean verified = false;
+    private String verificationToken;
+//    private String otpCode;
+//    private LocalDateTime otpExpiryTime;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
