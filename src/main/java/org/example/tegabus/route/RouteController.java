@@ -25,7 +25,6 @@ public class RouteController {
     public ResponseEntity<RouteResponseDto> createRoute(@RequestBody @Valid RouteDto dto){
         Route route = routeService.createRoute(dto);
         RouteResponseDto responseDto = RouteResponseDto.builder()
-                .id(route.getId())
                 .origin(route.getOrigin())
                 .destination(route.getDestination())
                 .distanceInKm(route.getDistanceInKm())
@@ -42,7 +41,6 @@ public class RouteController {
         List<Route> routes = routeService.getAllRoutes();
         List<RouteResponseDto> responseDto = routes.stream()
                 .map(route -> RouteResponseDto.builder()
-                .id(route.getId())
                 .origin(route.getOrigin())
                 .destination(route.getDestination())
                 .distanceInKm(route.getDistanceInKm())
@@ -58,7 +56,6 @@ public class RouteController {
     public ResponseEntity<RouteResponseDto> getRouteById(@PathVariable UUID id){
         Route route = routeService.getRouteById(id);
         RouteResponseDto responseDto = RouteResponseDto.builder()
-                .id(route.getId())
                 .origin(route.getOrigin())
                 .destination(route.getDestination())
                 .distanceInKm(route.getDistanceInKm())
@@ -73,7 +70,6 @@ public class RouteController {
     public ResponseEntity<RouteResponseDto> updateRoute(@PathVariable UUID id, @RequestBody @Valid RouteDto dto){
         Route route = routeService.updateRoute(id, dto);
         RouteResponseDto responseDto = RouteResponseDto.builder()
-                .id(route.getId())
                 .origin(route.getOrigin())
                 .destination(route.getDestination())
                 .distanceInKm(route.getDistanceInKm())
