@@ -4,6 +4,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.example.tegabus.booking.Dtos.BookingDto;
+import org.example.tegabus.booking.Dtos.BookingResponseDto;
+import org.example.tegabus.route.RouteConverter;
+import org.example.tegabus.route.routeDtos.RouteResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,29 +22,68 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class BookingController {
     private final BookingService  bookingService;
+    private final RouteConverter routeConverter;
 
     @PostMapping
-    public ResponseEntity<Booking> createBooking(@RequestBody BookingDto dto){
-        Booking  savedBooking = bookingService.createBooking(dto);
-        return new ResponseEntity<>(savedBooking, HttpStatus.CREATED);
+    public ResponseEntity<BookingResponseDto> createBooking(@RequestBody BookingDto dto){
+        Booking  booking = bookingService.createBooking(dto);
+RouteResponseDto routeDto = routeConverter.toResponseDto(booking.getRoute());
+
+        BookingResponseDto responseDto = BookingResponseDto.builder()
+                .id(booking.getId())
+                .passengerName(booking.getPassengerName())
+                .route(routeDto)
+                .travelDate(booking.getTravelDate())
+                .seatNumber(booking.getSeatNumber())
+                .build();
+        return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Booking> getBookingById(@PathVariable UUID id){
-        Optional<Booking> booking = bookingService.getBookingById(id);
-        return booking.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<BookingResponseDto> getBookingById(@PathVariable UUID id){
+        Optional<Booking> optionalBooking = bookingService.getBookingById(id);
+        if(optionalBooking.isPresent()){
+            Booking booking = optionalBooking.get();
+            BookingResponseDto responseDto = BookingResponseDto.builder()
+                    .id(booking.getId())
+                    .passengerName(booking.getPassengerName())
+                    .route(routeConverter.toResponseDto(booking.getRoute()))
+                    .travelDate(booking.getTravelDate())
+                    .seatNumber(booking.getSeatNumber())
+                    .build();
+            return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        } else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
     @GetMapping
-    public ResponseEntity<List<Booking>> getAllBooking(){
-        var Bookings = bookingService.getAllBookings();
-        return new ResponseEntity<>(Bookings, HttpStatus.OK);
+    public ResponseEntity<List<BookingResponseDto>> getAllBooking(){
+        List<Booking> bookings = bookingService.getAllBookings();
+        List<BookingResponseDto> bookingResponseDtos = bookings.stream()
+                .map(booking ->BookingResponseDto.builder()
+                        .id(booking.getId())
+                .passengerName(booking.getPassengerName())
+                .route(routeConverter.toResponseDto(booking.getRoute()) )
+                .travelDate(booking.getTravelDate())
+                .seatNumber(booking.getSeatNumber())
+                .build())
+                .toList();
+        return new ResponseEntity<>(bookingResponseDtos, HttpStatus.OK);
     }
     @Operation(
             summary = "update bookings by Id"
     )
     @PutMapping("/{id}")
-    public ResponseEntity<Booking> updateBookingById(@PathVariable UUID id, @RequestBody BookingDto dto){
-        Optional<Booking> updated = bookingService.updateBooking(id, dto);
-        return updated.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<BookingResponseDto> updateBookingById(@PathVariable UUID id, @RequestBody BookingDto dto){
+        Optional<Booking> updatedBooking = bookingService.updateBooking(id, dto);
+        return updatedBooking.map(booking -> ResponseEntity.ok(
+                BookingResponseDto.builder()
+                        .id(booking.getId())
+                        .passengerName(booking.getPassengerName())
+                        .route(routeConverter.toResponseDto(booking.getRoute()))
+                        .travelDate(booking.getTravelDate())
+                        .seatNumber(booking.getSeatNumber())
+                        .build()
+        )).orElseGet(() -> ResponseEntity.notFound().build());
     }
     @Operation(
             summary = "Delete booking by Id"
