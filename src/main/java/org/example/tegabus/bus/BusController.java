@@ -4,8 +4,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.example.tegabus.bus.Dtos.BusDto;
-import org.example.tegabus.bus.Dtos.BusResponseDto;
+import org.example.tegabus.bus.dtos.BusDto;
+import org.example.tegabus.bus.dtos.BusResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,11 +26,8 @@ public class BusController {
         Bus bus = busService.createBus(dto);
         BusResponseDto responseDto = BusResponseDto.builder()
                 .id(bus.getId())
-                .model(bus.getModel())
                 .status(bus.getStatus())
-                .type(bus.getType())
                 .driverName(bus.getDriverName())
-                .driverPhoneNumber(bus.getDriverPhoneNumber())
                 .build();
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
@@ -42,11 +39,8 @@ public class BusController {
         List<BusResponseDto> responseDto = buses.stream()
                 .map(bus -> BusResponseDto.builder()
                         .id(bus.getId())
-                        .model(bus.getModel())
                         .status(bus.getStatus())
-                        .type(bus.getType())
                         .driverName(bus.getDriverName())
-                        .driverPhoneNumber(bus.getDriverPhoneNumber())
                         .build())
                 .toList();
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
@@ -58,11 +52,8 @@ public class BusController {
         Bus bus = busService.findBusById(id);
         BusResponseDto responseDto = BusResponseDto.builder()
                 .id(bus.getId())
-                .model(bus.getModel())
                 .status(bus.getStatus())
-                .type(bus.getType())
                 .driverName(bus.getDriverName())
-                .driverPhoneNumber(bus.getDriverPhoneNumber())
                 .build();
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
@@ -73,11 +64,8 @@ public class BusController {
         Bus bus = busService.updateBus(id, dto);
         BusResponseDto responseDto = BusResponseDto.builder()
                 .id(bus.getId())
-                .model(bus.getModel())
                 .status(bus.getStatus())
-                .type(bus.getType())
                 .driverName(bus.getDriverName())
-                .driverPhoneNumber(bus.getDriverPhoneNumber())
                 .build();
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }

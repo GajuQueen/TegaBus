@@ -16,12 +16,12 @@ public class RouteResponseDto {
     private Integer  durationInMinutes;
     private Double distanceInKm;
 
-//    public RouteResponseDto(String origin, String destination, Double price, Integer durationInMinutes, Double distanceInKm) {
-//        this.origin = origin;
-//        this.destination = destination;
-//        this.price = price;
-//        this.durationInMinutes = durationInMinutes;
-//        this.distanceInKm = distanceInKm;
-//    }
+    public RouteResponseDto(String origin, String destination, Double price, Integer durationInMinutes, Double distanceInKm) {
+        this.origin = origin;
+        this.destination = destination;
+        this.price = price;
+        this.durationInMinutes = durationInMinutes;
+        this.distanceInKm = distanceInKm;
+    }
 
 }

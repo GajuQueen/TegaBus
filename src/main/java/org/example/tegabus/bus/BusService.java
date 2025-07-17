@@ -2,8 +2,8 @@ package org.example.tegabus.bus;
 
 import lombok.RequiredArgsConstructor;
 //import org.example.tegabus.exception.ResourceNotFoundException;
-import org.example.tegabus.bus.Dtos.BusDto;
-import org.example.tegabus.bus.Dtos.BusResponseDto;
+import org.example.tegabus.bus.dtos.BusDto;
+import org.example.tegabus.bus.dtos.BusResponseDto;
 import org.example.tegabus.exception.ResourceNotFoundException;
 import org.example.tegabus.route.Route;
 import org.example.tegabus.route.routeDtos.RouteResponseDto;
@@ -52,19 +52,18 @@ public class BusService {
     }
     public BusResponseDto toResponseDto(Bus bus){
         Route route = bus.getRoute();
-        RouteResponseDto routeResponseDto =  RouteResponseDto.builder()
-                        .id(route.getId())
-                                        .origin(route.getOrigin())
-                .destination(route.getDestination())
-                .price(route.getPrice())
-                .durationInMinutes(route.getDurationInMinutes())
-                .distanceInKm(route.getDistanceInKm())
-                .build();
-
+        RouteResponseDto routeResponseDto = new RouteResponseDto(
+                route.getOrigin(),
+                route.getDestination(),
+                route.getPrice(),
+                route.getDurationInMinutes(),
+                route.getDistanceInKm()
+        );
         return BusResponseDto.builder()
                 .id(bus.getId())
                 .plateNumber(bus.getPlateNumber())
                 .status(bus.getStatus())
+                .route(routeResponseDto)
                 .driverName(bus.getDriverName())
                 .build();
     }

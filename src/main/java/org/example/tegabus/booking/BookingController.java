@@ -3,16 +3,15 @@ package org.example.tegabus.booking;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
-import org.example.tegabus.booking.Dtos.BookingDto;
-import org.example.tegabus.booking.Dtos.BookingResponseDto;
-import org.example.tegabus.route.RouteConverter;
+import org.example.tegabus.route.Route;
+
 import org.example.tegabus.route.routeDtos.RouteResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 
@@ -20,77 +19,60 @@ import java.util.UUID;
 @RequestMapping("/api/bookings")
 @SecurityRequirement(name = "auth")
 @RequiredArgsConstructor
-public class BookingController {
-    private final BookingService  bookingService;
-    private final RouteConverter routeConverter;
+public class BookingController{
+    private final BookingService bookingService;
 
+    private BookingResponseDto toResponseDto(Booking booking){
+        Route route = booking.getSchedule().getRoute();
+RouteResponseDto routeResponseDto =  RouteResponseDto.builder()
+        .origin(route.getOrigin())
+        .destination(route.getDestination())
+        .price(route.getPrice())
+        .durationInMinutes(route.getDurationInMinutes())
+        .distanceInKm(route.getDistanceInKm())
+        .build();
+return BookingResponseDto.builder()
+        .id(booking.getId())
+        .passengerName(booking.getPassengerName())
+        .travelDate(booking.getTravelDate())
+        .seatNumber(booking.getSeatNumber())
+        .route(routeResponseDto)
+        .build();
+
+    }
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @PostMapping
+    @Operation(summary = "create a new booking")
     public ResponseEntity<BookingResponseDto> createBooking(@RequestBody BookingDto dto){
-        Booking  booking = bookingService.createBooking(dto);
-RouteResponseDto routeDto = routeConverter.toResponseDto(booking.getRoute());
-
-        BookingResponseDto responseDto = BookingResponseDto.builder()
-                .id(booking.getId())
-                .passengerName(booking.getPassengerName())
-                .route(routeDto)
-                .travelDate(booking.getTravelDate())
-                .seatNumber(booking.getSeatNumber())
-                .build();
+        BookingResponseDto responseDto = bookingService.createBooking(dto);
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping("/{id}")
+    @Operation(summary = "Get all bookings")
     public ResponseEntity<BookingResponseDto> getBookingById(@PathVariable UUID id){
-        Optional<Booking> optionalBooking = bookingService.getBookingById(id);
-        if(optionalBooking.isPresent()){
-            Booking booking = optionalBooking.get();
-            BookingResponseDto responseDto = BookingResponseDto.builder()
-                    .id(booking.getId())
-                    .passengerName(booking.getPassengerName())
-                    .route(routeConverter.toResponseDto(booking.getRoute()))
-                    .travelDate(booking.getTravelDate())
-                    .seatNumber(booking.getSeatNumber())
-                    .build();
-            return new ResponseEntity<>(responseDto, HttpStatus.OK);
-        } else{
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return bookingService.getBookingById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping
-    public ResponseEntity<List<BookingResponseDto>> getAllBooking(){
-        List<Booking> bookings = bookingService.getAllBookings();
-        List<BookingResponseDto> bookingResponseDtos = bookings.stream()
-                .map(booking ->BookingResponseDto.builder()
-                        .id(booking.getId())
-                .passengerName(booking.getPassengerName())
-                .route(routeConverter.toResponseDto(booking.getRoute()) )
-                .travelDate(booking.getTravelDate())
-                .seatNumber(booking.getSeatNumber())
-                .build())
-                .toList();
-        return new ResponseEntity<>(bookingResponseDtos, HttpStatus.OK);
-    }
-    @Operation(
-            summary = "update bookings by Id"
-    )
-    @PutMapping("/{id}")
-    public ResponseEntity<BookingResponseDto> updateBookingById(@PathVariable UUID id, @RequestBody BookingDto dto){
-        Optional<Booking> updatedBooking = bookingService.updateBooking(id, dto);
-        return updatedBooking.map(booking -> ResponseEntity.ok(
-                BookingResponseDto.builder()
-                        .id(booking.getId())
-                        .passengerName(booking.getPassengerName())
-                        .route(routeConverter.toResponseDto(booking.getRoute()))
-                        .travelDate(booking.getTravelDate())
-                        .seatNumber(booking.getSeatNumber())
-                        .build()
-        )).orElseGet(() -> ResponseEntity.notFound().build());
-    }
-    @Operation(
-            summary = "Delete booking by Id"
-    )
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteBookingById(@PathVariable UUID id){
+    @Operation(summary = "Get all bookings")
+public ResponseEntity<List<BookingResponseDto>> getAllBookings(){
+        List<BookingResponseDto> responseList = bookingService.getAllBookings();
+    return ResponseEntity.ok(responseList);
+}
+@PutMapping("/{id}")
+@Operation(summary = "Update booking by id")
+public ResponseEntity<BookingResponseDto> updateBooking(@PathVariable UUID id, @RequestBody BookingDto dto){
+        return bookingService.updateBooking(id, dto)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+}
+@DeleteMapping("/{id}")
+@Operation(summary = "Delete booking by id")
+public ResponseEntity<Void> deleteBooking(@PathVariable UUID id){
         bookingService.deleteBooking(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
+        return ResponseEntity.noContent().build();
+}
 }
