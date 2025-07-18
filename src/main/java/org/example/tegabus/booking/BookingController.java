@@ -22,24 +22,24 @@ import java.util.UUID;
 public class BookingController{
     private final BookingService bookingService;
 
-    private BookingResponseDto toResponseDto(Booking booking){
-        Route route = booking.getSchedule().getRoute();
-RouteResponseDto routeResponseDto =  RouteResponseDto.builder()
-        .origin(route.getOrigin())
-        .destination(route.getDestination())
-        .price(route.getPrice())
-        .durationInMinutes(route.getDurationInMinutes())
-        .distanceInKm(route.getDistanceInKm())
-        .build();
-return BookingResponseDto.builder()
-        .id(booking.getId())
-        .passengerName(booking.getPassengerName())
-        .travelDate(booking.getTravelDate())
-        .seatNumber(booking.getSeatNumber())
-        .route(routeResponseDto)
-        .build();
-
-    }
+//    private BookingResponseDto toResponseDto(Booking booking){
+//        Route route = booking.getSchedule().getRoute();
+//RouteResponseDto routeResponseDto =  RouteResponseDto.builder()
+//        .origin(route.getOrigin())
+//        .destination(route.getDestination())
+//        .price(route.getPrice())
+//        .durationInMinutes(route.getDurationInMinutes())
+//        .distanceInKm(route.getDistanceInKm())
+//        .build();
+//return BookingResponseDto.builder()
+//        .id(booking.getId())
+//        .passengerName(booking.getPassengerName())
+//        .travelDate(booking.getTravelDate())
+//        .seatNumber(booking.getSeatNumber())
+//        .route(routeResponseDto)
+//        .build();
+//
+//    }
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @PostMapping
     @Operation(summary = "create a new booking")

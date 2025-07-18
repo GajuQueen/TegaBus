@@ -23,6 +23,7 @@ public class RouteService {
     }
 
     public List<Route> getAllRoutes() {
+
         return routeRepository.findAll();
     }
 
