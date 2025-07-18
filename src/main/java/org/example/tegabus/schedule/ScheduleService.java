@@ -53,13 +53,15 @@ public class ScheduleService {
         Bus bus = schedule.getBus();
         Route route = schedule.getRoute();
 
-        RouteResponseDto routeResponseDto = new RouteResponseDto(
-                route.getOrigin(),
-                route.getDestination(),
-                route.getPrice(),
-                route.getDurationInMinutes(),
-                route.getDistanceInKm()
-        );
+        RouteResponseDto routeResponseDto =  RouteResponseDto.builder()
+                        .id(route.getId())
+                .origin( route.getOrigin())
+                .destination(route.getDestination())
+                .price(route.getPrice())
+                .durationInMinutes( route.getDurationInMinutes())
+                .distanceInKm(route.getDistanceInKm())
+                .build();
+
         return ScheduleResponseDto.builder()
                 .plateNumber(bus.getPlateNumber())
                 .route(routeResponseDto)

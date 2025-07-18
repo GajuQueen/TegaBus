@@ -52,13 +52,15 @@ public class BusService {
     }
     public BusResponseDto toResponseDto(Bus bus){
         Route route = bus.getRoute();
-        RouteResponseDto routeResponseDto = new RouteResponseDto(
-                route.getOrigin(),
-                route.getDestination(),
-                route.getPrice(),
-                route.getDurationInMinutes(),
-                route.getDistanceInKm()
-        );
+        RouteResponseDto routeResponseDto =  RouteResponseDto.builder()
+                        .id(route.getId())
+                .origin(route.getOrigin())
+                .destination(route.getDestination())
+                .price(route.getPrice())
+                .durationInMinutes(route.getDurationInMinutes())
+                .distanceInKm(route.getDistanceInKm())
+                .build();
+
         return BusResponseDto.builder()
                 .id(bus.getId())
                 .plateNumber(bus.getPlateNumber())
