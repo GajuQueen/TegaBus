@@ -22,6 +22,9 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         customizer -> customizer
+
+                                .requestMatchers(HttpMethod.GET, "/api/auth/verify-email/**").permitAll()
+                                .requestMatchers("/api/auth/forgot-password", "/api/auth/reset-password").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/api/schedules").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/api/routes").permitAll()
                                 .requestMatchers("/api/users/analytics").hasRole("ADMIN")
