@@ -55,7 +55,12 @@ public class AuthService {
                 new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword())
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        return userRepository.findByEmail(dto.getEmail()).orElseThrow(() -> new RuntimeException("User not found"));
+        User user = userRepository.findByEmail(dto.getEmail())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        userService.checkIfVerified(user);
+
+        return user;
     }
 
 }
