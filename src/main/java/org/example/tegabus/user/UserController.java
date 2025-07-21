@@ -12,6 +12,7 @@ import org.example.tegabus.dto.RegisterRequestDto;
 import org.example.tegabus.jwt.AuthService;
 import org.example.tegabus.jwt.JwtService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -54,10 +55,33 @@ public class UserController {
     @GetMapping("/verify-email")
     @Operation(summary = "Verify user email using token from email")
     public ResponseEntity<String> verifyEmail(@RequestParam("token") String token) {
-        userService.verifyUserByToken(token);
-        return ResponseEntity.ok("Email verified successfully! You may now login.");
-    }
+        try {
+            userService.verifyUserByToken(token);
 
+            String successHtml = "<!DOCTYPE html>" +
+                    "<html><head><title>Email Verified</title></head>" +
+                    "<body style='font-family:sans-serif;text-align:center;margin-top:50px;'>" +
+                    "<h2 style='color:green;'>Email verified successfully!</h2>" +
+                    "<p>You can now log in to your Tegabus account.</p>" +
+                    "</body></html>";
+
+            return ResponseEntity.ok()
+                    .contentType(MediaType.TEXT_HTML)
+                    .body(successHtml);
+
+        } catch (RuntimeException e) {
+            String errorHtml = "<!DOCTYPE html>" +
+                    "<html><head><title>Verification Failed</title></head>" +
+                    "<body style='font-family:sans-serif;text-align:center;margin-top:50px;'>" +
+                    "<h2 style='color:red;'>Verification failed!</h2>" +
+                    "<p>" + e.getMessage() + "</p>" +
+                    "</body></html>";
+
+            return ResponseEntity.badRequest()
+                    .contentType(MediaType.TEXT_HTML)
+                    .body(errorHtml);
+        }
+    }
 
     @PostMapping("/forgot-password")
     public ResponseEntity<?> forgotPassword(@RequestBody @Valid String email){
@@ -66,7 +90,7 @@ public class UserController {
         user.setResetToken(token);
         user.setResetTokenExpiry(LocalDateTime.now().plusMinutes(15));
         userRepository.save(user);
-        String link = "htttp://localhost:8080/reset-password?token=" + token;
+        String link = "https://tegabus.onrender.com/api/auth/reset-password?token=" + token;
         System.out.println("Reset link: " + link);
 //        userService.createPasswordResetToken(email);
         return ResponseEntity.ok("Password reset link sent to your email.");
