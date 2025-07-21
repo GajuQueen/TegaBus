@@ -1,48 +1,4 @@
-//package org.example.tegabus.user;
-//
-//import lombok.RequiredArgsConstructor;
-//import org.example.tegabus.dto.LoginRequestDto;
-//import org.example.tegabus.dto.PasswordResetDto;
-//import org.example.tegabus.dto.RegisterRequestDto;
-//import org.example.tegabus.jwt.AuthService;
-//import org.example.tegabus.jwt.JwtService;
-//import org.springframework.http.HttpStatus;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.web.bind.annotation.PostMapping;
-//import org.springframework.web.bind.annotation.RequestBody;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//import org.springframework.web.bind.annotation.RestController;
-//
-//import java.util.HashMap;
-//import java.util.Map;
-//
-//@RestController
-//@RequestMapping("/api/auth")
-//@RequiredArgsConstructor
-//public class UserController {
-//    private final AuthService authService;
-//    private final JwtService jwtService;
-//    private final UserService userService;
-//
-//    @PostMapping("/users_register")
-//    public ResponseEntity<User> register(@RequestBody RegisterRequestDto dto){
-//        var registeredUser = authService.registerUser(dto);
-//        return new ResponseEntity<>(registeredUser, HttpStatus.CREATED);
-//    }
-//    @PostMapping("/user_login")
-//    public ResponseEntity<Map<String, String>> login(@RequestBody LoginRequestDto dto){
-//        User loggedInUser = authService.loginUser(dto);
-//        String token = jwtService.generateToken(loggedInUser);
-//        Map<String, String> response = new HashMap<>();
-//        response.put("token", token);
-//        return new ResponseEntity<>(response, HttpStatus.OK);
-//    }
-//    @PostMapping("/reset_password")
-//    public ResponseEntity<String> resetPassword(@RequestBody PasswordResetDto dto){
-//        userService.resetPassword(dto.getToken(), dto.getNewPassword());
-//        return new ResponseEntity<>("Reset password completed", HttpStatus.OK);
-//    }
-//}
+
 package org.example.tegabus.user;
 
 import io.swagger.v3.oas.annotations.Operation;
