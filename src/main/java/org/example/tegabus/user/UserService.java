@@ -3,6 +3,8 @@ package org.example.tegabus.user;
 import lombok.RequiredArgsConstructor;
 import org.example.tegabus.EmailService;
 import org.example.tegabus.analytics.UserAnalyticsResponse;
+import org.example.tegabus.verificationToken.VerificationToken;
+import org.example.tegabus.verificationToken.verificationTokenRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
+    private final verificationTokenRepository tokenRepository;
 
     public User getUserByEmail(String email){
         return userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
@@ -66,21 +69,33 @@ public class UserService {
         }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setVerificationToken(UUID.randomUUID().toString());
         user.setVerified(false);
-
         User savedUser = userRepository.save(user);
+
+        String token = UUID.randomUUID().toString();
+        VerificationToken verificationToken = new VerificationToken(token,savedUser);
+        tokenRepository.save(verificationToken);
+
+
         emailService.sendVerificationEmail(user.getEmail(), user.getVerificationToken());
         return savedUser;
     }
 
     public void verifyUserByToken(String token) {
-        User user = userRepository.findByVerificationToken(token)
+        VerificationToken verificationToken = tokenRepository.findByToken(token)
                 .orElseThrow(() -> new RuntimeException("Invalid verification token"));
 
+        if (verificationToken.getExpiryDate().isBefore(LocalDateTime.now())) {
+            tokenRepository.delete(verificationToken);
+            throw new RuntimeException("Verification token expired");
+        }
+
+        User user = verificationToken.getUser();
         user.setVerified(true);
-        user.setVerificationToken(null);
         userRepository.save(user);
+
+        tokenRepository.delete(verificationToken);
+
     }
 
     public void checkIfVerified(User user) {
