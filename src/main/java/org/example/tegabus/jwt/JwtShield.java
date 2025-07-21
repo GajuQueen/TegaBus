@@ -41,6 +41,10 @@ public class JwtShield extends OncePerRequestFilter {
                 authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             }
+            if (request.getRequestURI().startsWith("/api/auth/verify-email")) {
+                filterChain.doFilter(request, response);
+                return;
+            }
         }
         filterChain.doFilter(request, response);
     }
