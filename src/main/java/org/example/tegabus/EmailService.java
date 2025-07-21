@@ -29,7 +29,7 @@ public class EmailService {
 //    VERIFICATION
 public void sendVerificationEmail(String toEmail, String token) {
     String subject = "Verify Your Tegabus Account";
-    String verificationUrl = "http://localhost:8080/api/auth/verify-email?token=" + token;
+    String verificationUrl = "https://tegabus.onrender.com/api/auth/verify-email?token=" + token;
 
     String body = "<h3>Welcome to Tegabus!</h3>" +
             "<p>Please click the link below to verify your email address:</p>" +
